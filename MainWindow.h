@@ -17,6 +17,8 @@
 #include "DialogCaseChanging.h"
 #include "MyGraphicsView.h"
 
+enum DistCalcType{RealDist, VisibleDist};
+
 class MainWindow : public QWidget
 {
     Q_OBJECT
@@ -32,6 +34,9 @@ public slots:
     void activateDistanceCalc(QPoint);
     void displayCaseDialog();
     void changeCase(int, int, int, int, int, int);
+    void setDistCalcVisible();
+    void setDistCalcReal();
+    
     
 private:
     int width;
@@ -51,7 +56,7 @@ private:
     QGraphicsSimpleTextItem *text_pos;
     QGraphicsEllipseItem *point1_dist;
     QGraphicsEllipseItem *point2_dist;    
-    QGraphicsLineItem *line_previsdist;
+    std::vector<QGraphicsLineItem*> lines_previsdist;
     QGraphicsSimpleTextItem *dist_text;
     QMenuBar *bar;
     
@@ -67,6 +72,16 @@ private:
     QPoint mouse_pos;
     
     bool distanceCalcActivate;
+    
+    QMenu *menuParam;
+    QAction *actCase;
+    
+    QMenu *menuDistCalc;
+    QAction *actDistCalcRealSpacing;
+    
+    QAction *actDistCalcVisibleSpacing;
+    
+    DistCalcType dist_type;
 };
 
 #endif // MAINWINDOW_H
